@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, Search, X } from 'lucide-react'
-import { formatPrice, products, type Product, type ShirtColor, WHATSAPP_NUMBER } from '../data/products'
+import { products, type Product, type ShirtColor, WHATSAPP_NUMBER } from '../data/products'
 
 const categories = ['All pieces', 'Everyday', 'Linen edit', 'New arrivals']
 const sizes = ['S', 'M', 'L', 'XL']
@@ -23,7 +23,6 @@ function ProductCard({ product, onSelect, index }: { product: Product; onSelect:
           <p className="product-category">{product.category}</p>
           <h3>{product.name}</h3>
         </div>
-        <p className="product-price">{formatPrice(product.price)}</p>
       </div>
     </article>
   )
@@ -49,7 +48,6 @@ function ProductDetail({ product, onClose }: { product: Product; onClose: () => 
     `Ukuran: ${selectedSize}`,
     `Warna: ${selectedColor.name}`,
     `Jumlah: ${quantity}`,
-    `Harga: ${formatPrice(product.price)}`,
   ].join('\n')
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 
@@ -71,7 +69,6 @@ function ProductDetail({ product, onClose }: { product: Product; onClose: () => 
         <div className="detail-copy">
           <p className="eyebrow">{product.category} · FRWRD</p>
           <h2 id="detail-title">{product.name}</h2>
-          <p className="detail-price">{formatPrice(product.price)}</p>
           <p className="detail-description">{product.description}</p>
           <p className="detail-material">{product.material}</p>
 

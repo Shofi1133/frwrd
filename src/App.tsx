@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <>
-      <div className="announcement-bar">Free delivery in Java for orders over Rp750.000 <span>✳</span></div>
+      <div className="announcement-bar">Free delivery across Java <span>✳</span></div>
       <Navbar />
       <main>
         <Hero />

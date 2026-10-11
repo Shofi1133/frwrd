@@ -6,7 +6,6 @@ export type ShirtColor = {
 export type Product = {
   id: string
   name: string
-  price: number
   category: string
   tag: string
   image: string
@@ -19,7 +18,6 @@ export const products: Product[] = [
   {
     id: 'the-form-shirt',
     name: 'The Form Shirt',
-    price: 489000,
     category: 'Everyday',
     tag: 'BESTSELLER',
     image: '/images/frwrd-product-slate.png',
@@ -34,7 +32,6 @@ export const products: Product[] = [
   {
     id: 'the-linen-shirt',
     name: 'The Linen Shirt',
-    price: 559000,
     category: 'Linen edit',
     tag: 'NEW ARRIVAL',
     image: '/images/frwrd-product-ivory.png',
@@ -49,7 +46,6 @@ export const products: Product[] = [
   {
     id: 'the-daily-overshirt',
     name: 'The Daily Overshirt',
-    price: 529000,
     category: 'Everyday',
     tag: 'CORE PIECE',
     image: '/images/frwrd-product-olive.png',
@@ -64,7 +60,6 @@ export const products: Product[] = [
   {
     id: 'the-line-shirt',
     name: 'The Line Shirt',
-    price: 499000,
     category: 'New arrivals',
     tag: 'LIMITED',
     image: '/images/frwrd-product-stripe.png',
@@ -76,13 +71,6 @@ export const products: Product[] = [
     ],
   },
 ]
-
-export const formatPrice = (price: number) =>
-  new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-  }).format(price)
 
 // Replace this with the FRWRD WhatsApp number, including country code and no + or spaces.
 export const WHATSAPP_NUMBER = '6281234567890'
