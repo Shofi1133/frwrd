@@ -20,7 +20,7 @@ export function Navbar() {
 
       <nav className="desktop-nav" aria-label="Main navigation">
         {links.map((link) => (
-          <a key={link.href} href={link.href}>
+          <a key={`${link.href}-${link.label}`} href={link.href}>
             {link.label}
           </a>
         ))}
@@ -44,7 +44,7 @@ export function Navbar() {
       {isMenuOpen && (
         <nav className="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
           {links.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>
+            <a key={`${link.href}-${link.label}`} href={link.href} onClick={() => setIsMenuOpen(false)}>
               {link.label}
             </a>
           ))}
