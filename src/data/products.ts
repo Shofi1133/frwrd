@@ -86,3 +86,5 @@ export const formatPrice = (price: number) =>
 
 // Replace this with the FRWRD WhatsApp number, including country code and no + or spaces.
 export const WHATSAPP_NUMBER = '6281234567890'
+export const INSTAGRAM_HANDLE = '@frwrd'
+export const INSTAGRAM_URL = 'https://instagram.com/frwrd'
