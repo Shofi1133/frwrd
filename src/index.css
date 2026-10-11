@@ -49,11 +49,11 @@ img { display: block; width: 100%; }
 .mobile-menu-toggle, .mobile-nav { display: none; }
 
 .hero { display: flex; min-height: min(560px, calc(100svh - 106px)); align-items: center; background: #eae7df; }
-.hero-copy { display: flex; width: min(100%, 920px); flex-direction: column; align-items: flex-start; padding: 86px 9%; }
+.hero-copy { display: flex; width: 100%; max-width: none; flex-direction: column; align-items: flex-start; padding: 86px clamp(28px, 8vw, 112px); }
 .eyebrow { margin: 0; color: #79776e; font-size: 9px; font-weight: 600; letter-spacing: .18em; line-height: 1.5; text-transform: uppercase; }
 .hero-eyebrow { margin-bottom: 20px; }
 .hero h1 { margin: 0; font-size: clamp(47px, 6.1vw, 88px); font-weight: 500; letter-spacing: -.075em; line-height: .99; }
-.hero-description { max-width: 740px; margin: 23px 0 28px; color: #6f6d66; font-size: 14px; line-height: 1.95; }
+.hero-description { width: 100%; max-width: none; margin: 23px 0 28px; color: #6f6d66; font-size: 14px; line-height: 1.95; }
 .button { display: inline-flex; min-height: 49px; align-items: center; justify-content: center; gap: 30px; padding: 0 21px; font-size: 10px; font-weight: 600; letter-spacing: .04em; transition: background .2s ease, color .2s ease, transform .2s ease; }
 .button:hover { transform: translateY(-2px); }
 .button svg { width: 15px; height: 15px; }
