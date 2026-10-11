@@ -3,6 +3,7 @@ import { AboutSection } from './components/AboutSection'
 import { Hero } from './components/Hero'
 import { Navbar } from './components/Navbar'
 import { ProductCatalog } from './components/ProductCatalog'
+import { PoliciesSection } from './components/PoliciesSection'
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_NUMBER } from './data/products'
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <span className="quote-caption">FRWRD, ALWAYS FORWARD.</span>
         </section>
         <AboutSection />
+        <PoliciesSection />
         <section className="contact-strip" id="contact">
           <div>
             <p className="eyebrow">Kami siap membantu lewat WhatsApp</p>
@@ -47,6 +49,8 @@ export default function App() {
             <a href="#shop">Shop all</a>
             <a href="#collections">Collections</a>
             <a href="#about">Our story</a>
+            <a href="#size-chart">Size chart</a>
+            <a href="#terms">Syarat &amp; ketentuan</a>
           </div>
           <div className="footer-links">
             <span className="footer-label">SAY HELLO</span>
