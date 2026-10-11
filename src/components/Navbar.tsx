@@ -5,7 +5,7 @@ const links = [
   { label: 'Home', href: '#home' },
   { label: 'Shop', href: '#shop' },
   { label: 'Collections', href: '#collections' },
-  { label: 'About Us', href: '#about' },
+  { label: 'Tentang FRWRD', href: '#home' },
   { label: 'Contact', href: '#contact' },
 ]
 

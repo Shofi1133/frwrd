@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import '../src/index.css'
 
 export const metadata: Metadata = {
-  title: 'FRWRD — Dress for what’s next.',
-  description: 'Kemeja modern dengan detail yang dipikirkan. Temukan koleksi FRWRD dan pesan langsung melalui WhatsApp.',
+  title: 'FRWRD — Kemeja Pria Simpel, Modern & Nyaman',
+  description: 'FRWRD adalah brand kemeja pria dengan desain simpel, modern, dan nyaman untuk aktivitas sehari-hari, formal, maupun kasual.',
 }
 
 export const viewport: Viewport = {

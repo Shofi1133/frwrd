@@ -1,5 +1,4 @@
 import { ArrowUpRight, Camera } from 'lucide-react'
-import { AboutSection } from './components/AboutSection'
 import { Hero } from './components/Hero'
 import { Navbar } from './components/Navbar'
 import { ProductCatalog } from './components/ProductCatalog'
@@ -15,18 +14,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <div className="brand-promise" aria-label="FRWRD values">
-          <span>Better basics, by design</span><i />
-          <span>Designed in Indonesia</span><i />
-          <span>Made to be worn on repeat</span>
-        </div>
         <ProductCatalog />
-        <section className="quote-section" aria-label="FRWRD philosophy">
-          <span className="quote-mark">“</span>
-          <p>Dress like you mean <em>what&apos;s next.</em></p>
-          <span className="quote-caption">FRWRD, ALWAYS FORWARD.</span>
-        </section>
-        <AboutSection />
         <PoliciesSection />
         <section className="contact-strip" id="contact">
           <div>
@@ -42,13 +30,13 @@ export default function App() {
         <div className="footer-top">
           <div className="footer-brand-block">
             <a className="wordmark footer-wordmark" href="#home">FRWRD<span className="wordmark-period">.</span></a>
-            <p>Shirts for the life<br />you&apos;re moving toward.</p>
+            <p>Kemeja pria simpel,<br />modern, dan nyaman.</p>
           </div>
           <div className="footer-links">
             <span className="footer-label">EXPLORE</span>
             <a href="#shop">Shop all</a>
             <a href="#collections">Collections</a>
-            <a href="#about">Our story</a>
+            <a href="#home">Tentang FRWRD</a>
             <a href="#size-chart">Size chart</a>
             <a href="#terms">Syarat &amp; ketentuan</a>
           </div>
