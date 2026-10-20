@@ -93,7 +93,7 @@ export const sizeChart = [
   { size: 'XL', length: 59, width: 50, sleeve: 65 },
 ]
 
-export const WHATSAPP_NUMBER = '6281234567890'
+export const WHATSAPP_NUMBER = '6285181686682'
 export const INSTAGRAM_HANDLE = '@frwrd'
 export const INSTAGRAM_URL = 'https://instagram.com/frwrd'
 
