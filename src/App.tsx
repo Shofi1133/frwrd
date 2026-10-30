@@ -1,11 +1,17 @@
 import { ArrowUpRight, Camera } from 'lucide-react'
+import { AdminLogin } from './admin/AdminLogin'
+import { AdminProducts } from './admin/AdminProducts'
 import { Hero } from './components/Hero'
 import { Navbar } from './components/Navbar'
 import { ProductCatalog } from './components/ProductCatalog'
 import { PoliciesSection } from './components/PoliciesSection'
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_NUMBER } from './data/products'
+import './admin/admin.css'
 
 export default function App() {
+  if (window.location.pathname === '/admin/login') return <AdminLogin />
+  if (window.location.pathname.startsWith('/admin/')) return <AdminProducts />
+
   const contactMessage = encodeURIComponent('Halo FRWRD, saya ingin bertanya tentang koleksi kemeja.')
 
   return (
