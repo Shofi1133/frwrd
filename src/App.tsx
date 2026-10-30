@@ -9,7 +9,7 @@ import { INSTAGRAM_HANDLE, INSTAGRAM_URL, WHATSAPP_NUMBER } from './data/product
 import './admin/admin.css'
 
 export default function App() {
-  if (window.location.pathname === '/admin/login') return <AdminLogin />
+  if (window.location.pathname === '/admin' || window.location.pathname === '/admin/login') return <AdminLogin />
   if (window.location.pathname.startsWith('/admin/')) return <AdminProducts />
 
   const contactMessage = encodeURIComponent('Halo FRWRD, saya ingin bertanya tentang koleksi kemeja.')
