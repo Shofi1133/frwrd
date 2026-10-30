@@ -13,9 +13,16 @@ export function AdminLogin() {
     event.preventDefault()
     setLoading(true)
     setError('')
-    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
-    if (signInError) setError('Email atau kata sandi tidak benar. Silakan coba lagi.')
-    else window.location.href = '/admin/produk'
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email: email.trim(), password })
+    if (signInError) {
+      if (signInError.code === 'email_not_confirmed') {
+        setError('Email admin belum dikonfirmasi. Cek inbox email tersebut lalu konfirmasi akun.')
+      } else if (signInError.code === 'invalid_credentials') {
+        setError('Email atau kata sandi tidak benar. Pastikan akun admin sudah dibuat di Supabase Auth dan emailnya tepat.')
+      } else {
+        setError('Login gagal. Periksa konfigurasi Supabase atau coba lagi beberapa saat.')
+      }
+    } else window.location.href = '/admin/produk'
     setLoading(false)
   }
 
