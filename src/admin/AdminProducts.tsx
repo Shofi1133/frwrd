@@ -17,7 +17,7 @@ const storagePathForImage = (url: string) => { try { const parsed = new URL(url)
 export function AdminProducts() {
   const [products, setProducts] = useState<AdminProduct[]>([]); const [form, setForm] = useState<FormState>(blank); const [editing, setEditing] = useState<string | null>(null); const [query, setQuery] = useState(''); const [files, setFiles] = useState<File[]>([]); const [message, setMessage] = useState(''); const [saving, setSaving] = useState(false)
   const load = async () => { const { data } = await supabase.from('frwrd_products').select('id,nama,slug,seri,deskripsi,bahan,model,kategori,stok,ukuran,warna,gambar,aktif,created_at').order('created_at', { ascending: false }); setProducts((data ?? []) as AdminProduct[]) }
-  useEffect(() => { void load() }, [])
+  useEffect(() => { void supabase.auth.getSession().then(({ data }) => { if (!data.session) window.location.href = '/admin/login'; else void load() }) }, [])
   const visible = useMemo(() => products.filter((product) => `${product.nama} ${product.kategori}`.toLowerCase().includes(query.toLowerCase())), [products, query])
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => setForm((current) => ({ ...current, [key]: value }))
   const reset = () => { setForm(blank); setFiles([]); setEditing(null) }
