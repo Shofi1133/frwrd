@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, Search, X } from 'lucide-react'
 import { SizeChartTable } from './PoliciesSection'
-import { products, type Product, WHATSAPP_NUMBER } from '../data/products'
+import { type Product, WHATSAPP_NUMBER } from '../data/products'
+import { getPublicProducts } from '../lib/produk'
 
-const categories = ['Semua warna', ...products.map((product) => product.color.name)]
-const sizes = ['S', 'M', 'L', 'XL']
+const fallbackSizes = ['S', 'M', 'L', 'XL']
+const formatPrice = (price?: number) => price == null ? '' : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(price)
 
 function ProductCard({ product, onSelect, index }: { product: Product; onSelect: (product: Product) => void; index: number }) {
   return (
@@ -15,17 +16,17 @@ function ProductCard({ product, onSelect, index }: { product: Product; onSelect:
         onClick={() => onSelect(product)}
         aria-label={`Lihat detail ${product.name}`}
       >
-        <span className="product-tag">{product.color.name}</span>
+        <span className="product-tag">{(product.colors ?? [product.color])[0].name}</span>
         <img src={product.images[0]} alt={`${product.name}, foto kemeja tampak depan`} loading="lazy" />
         <span className="product-quick-view">Lihat detail <ArrowUpRight aria-hidden="true" /></span>
       </button>
       <div className="product-info">
         <div>
           <p className="product-category">{product.category}</p>
-          <h3>{product.name}</h3>
+          <h3>{product.name}</h3>{product.price != null && <span className="product-price">{formatPrice(product.price)}</span>}
         </div>
-        <span className="product-color-indicator" aria-label={`Warna ${product.color.name}`}>
-          <i style={{ backgroundColor: product.color.hex }} />{product.color.name}
+        <span className="product-color-indicator" aria-label={`Warna ${(product.colors ?? [product.color]).map((color) => color.name).join(', ')}`}>
+          {(product.colors ?? [product.color]).map((color) => <i key={color.name} style={{ backgroundColor: color.hex }} />)}{(product.colors ?? [product.color]).map((color) => color.name).join(', ')}
         </span>
       </div>
     </article>
@@ -34,7 +35,9 @@ function ProductCard({ product, onSelect, index }: { product: Product; onSelect:
 
 function ProductDetail({ product, onClose, onSelectColor }: { product: Product; onClose: () => void; onSelectColor: (product: Product) => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null)
-  const [selectedSize, setSelectedSize] = useState('M')
+  const availableSizes = product.sizes?.length ? product.sizes : fallbackSizes
+  const availableColors = product.colors?.length ? product.colors : [product.color]
+  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] ?? 'M')
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0)
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false)
@@ -51,7 +54,7 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
     'Halo FRWRD, saya ingin memesan:',
     `Produk: ${product.name}`,
     `Ukuran: ${selectedSize}`,
-    `Warna: ${product.color.name}`,
+    `Warna: ${(product.colors ?? [product.color])[0].name}`,
     `Jumlah: ${quantity}`,
   ].join('\n')
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
@@ -70,7 +73,7 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
         <div className="detail-gallery">
           <div className="detail-image-wrap">
             <img src={product.images[selectedImage]} alt={`${product.name}, foto ${selectedImage === 0 ? 'tampak depan' : `detail ${selectedImage}`}`} />
-            <span className="product-tag">{product.color.name}</span>
+            <span className="product-tag">{(product.colors ?? [product.color])[0].name}</span>
           </div>
           {product.images.length > 1 && (
             <div className="detail-thumbnails" role="group" aria-label="Foto produk">
@@ -98,7 +101,7 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
           <fieldset className="option-group">
             <legend>Ukuran <span>— {selectedSize}</span></legend>
             <div className="size-options">
-              {sizes.map((size) => (
+              {availableSizes.map((size) => (
                 <button
                   className={`size-option ${selectedSize === size ? 'is-selected' : ''}`}
                   key={size}
@@ -118,18 +121,18 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
           {isSizeChartOpen && <div className="inline-size-chart"><SizeChartTable /></div>}
 
           <fieldset className="option-group color-group">
-            <legend>Warna <span>— {product.color.name}</span></legend>
+            <legend>Warna <span>— {(product.colors ?? [product.color])[0].name}</span></legend>
             <div className="color-options">
-              {products.map((variant) => (
+              {availableColors.map((variant) => (
                 <button
-                  className={`color-option ${product.id === variant.id ? 'is-selected' : ''}`}
-                  key={variant.id}
+                  className={`color-option ${product.color.hex === variant.hex ? 'is-selected' : ''}`}
+                  key={variant.name}
                   type="button"
-                  aria-label={`Pilih warna ${variant.color.name}`}
-                  aria-pressed={product.id === variant.id}
-                  onClick={() => onSelectColor(variant)}
+                  aria-label={`Pilih warna ${variant.name}`}
+                  aria-pressed={product.color.hex === variant.hex}
+                  onClick={() => onSelectColor({ ...product, color: variant })}
                 >
-                  <span style={{ backgroundColor: variant.color.hex }} />
+                  <span style={{ backgroundColor: variant.hex }} />
                 </button>
               ))}
             </div>
@@ -155,18 +158,28 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
 }
 
 export function ProductCatalog() {
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>([])
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState('Semua warna')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
 
+  useEffect(() => {
+    let active = true
+    getPublicProducts().then((loadedProducts) => { if (active) setCatalogProducts(loadedProducts) })
+    return () => { active = false }
+  }, [])
+
+  const categories = useMemo(() => ['Semua warna', ...Array.from(new Set(catalogProducts.flatMap((product) => (product.colors ?? [product.color]).map((color) => color.name))))], [catalogProducts])
+
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
-    return products.filter((product) => {
-      const matchesCategory = activeCategory === 'Semua warna' || product.color.name === activeCategory
-      const matchesQuery = !normalizedQuery || `${product.name} ${product.category} ${product.color.name} ${product.description}`.toLowerCase().includes(normalizedQuery)
+    return catalogProducts.filter((product) => {
+      const productColors = product.colors ?? [product.color]
+      const matchesCategory = activeCategory === 'Semua warna' || productColors.some((color) => color.name === activeCategory)
+      const matchesQuery = !normalizedQuery || `${product.name} ${product.category} ${product.description} ${productColors.map((color) => color.name).join(' ')}`.toLowerCase().includes(normalizedQuery)
       return matchesCategory && matchesQuery
     })
-  }, [activeCategory, query])
+  }, [activeCategory, catalogProducts, query])
 
   return (
     <section className="catalog-section" id="shop" aria-labelledby="catalog-title">
@@ -216,7 +229,7 @@ export function ProductCatalog() {
       )}
 
       <div className="catalog-bottom-note">
-        <span>{filteredProducts.length} dari {products.length} warna</span>
+        <span>{filteredProducts.length} dari {catalogProducts.length} produk</span>
         <a href="#size-chart">Lihat size chart <ArrowUpRight aria-hidden="true" /></a>
       </div>
       {selectedProduct && <ProductDetail key={selectedProduct.id} product={selectedProduct} onClose={() => setSelectedProduct(null)} onSelectColor={setSelectedProduct} />}

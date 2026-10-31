@@ -5,13 +5,17 @@ export type ShirtColor = {
 
 export type Product = {
   id: string
+  slug?: string
   name: string
   category: string
   tag: string
   color: ShirtColor
+  colors?: ShirtColor[]
   images: string[]
   description: string
   material: string
+  sizes?: string[]
+  price?: number
 }
 
 export const products: Product[] = [
