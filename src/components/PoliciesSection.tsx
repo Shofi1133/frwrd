@@ -60,7 +60,7 @@ export function PoliciesSection() {
               <li>Pengajuan penukaran maksimal 7 hari sejak produk diterima.</li>
               <li>Penukaran berlaku untuk pesanan yang tidak sesuai, kesalahan pengiriman, atau produk yang rusak/cacat produksi.</li>
               <li>Produk tidak boleh dalam keadaan rusak, kotor, atau telah dicuci.</li>
-              <li>Label harga dan barcode produk harus masih utuh.</li>
+              <li>Label dan barcode produk harus masih utuh.</li>
               <li>Apabila barang yang dikirim tidak memenuhi syarat, barang akan dikembalikan kepada customer.</li>
             </ol>
           </div>
@@ -69,7 +69,7 @@ export function PoliciesSection() {
             <ol>
               <li>Konfirmasi kepada kami dan sertakan nomor transaksi sebelum produk dikirim kembali.</li>
               <li>Produk akan ditukar dengan produk yang sama atau dana dikembalikan jika stok tidak tersedia.</li>
-              <li>Setelah menerima konfirmasi ketersediaan produk pengganti, kirim produk beserta label harga dan barcode asli.</li>
+              <li>Setelah menerima konfirmasi ketersediaan produk pengganti, kirim produk beserta label dan barcode asli.</li>
               <li>Ongkos kirim pengembalian ditanggung customer; ongkos kirim produk pengganti ditanggung FRWRD.</li>
             </ol>
           </div>

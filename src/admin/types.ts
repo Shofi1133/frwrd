@@ -9,7 +9,6 @@ export type AdminProduct = {
   bahan: string
   model: string
   kategori: string
-  harga: number
   stok: number
   ukuran: string[]
   warna: AdminColor[]
