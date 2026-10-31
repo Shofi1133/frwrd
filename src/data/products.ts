@@ -18,6 +18,7 @@ export type Product = {
   price?: number
 }
 
+// TODO: hapus setelah seed berhasil. Dipertahankan sebagai fallback sementara.
 export const products: Product[] = [
   {
     id: 'kemeja-frwrd-coklat',
