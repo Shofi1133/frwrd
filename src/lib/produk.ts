@@ -10,7 +10,6 @@ type DatabaseProduct = {
   bahan: string | null
   model: string | null
   kategori: string
-  harga: number
   stok: number
   ukuran: string[] | null
   warna: Array<{ nama?: string; hex?: string }> | null
@@ -34,12 +33,11 @@ const toPublicProduct = (row: DatabaseProduct): Product => {
     description: row.deskripsi ?? '',
     material: [row.bahan, row.model].filter(Boolean).join(' · '),
     sizes: row.ukuran ?? [],
-    price: row.harga,
   }
 }
 
 export async function getPublicProducts(): Promise<Product[]> {
-  const { data, error } = await supabase.from('frwrd_products').select('id,nama,slug,seri,deskripsi,bahan,model,kategori,harga,stok,ukuran,warna,gambar,aktif,created_at').eq('aktif', true).order('created_at', { ascending: false })
+  const { data, error } = await supabase.from('frwrd_products').select('id,nama,slug,seri,deskripsi,bahan,model,kategori,stok,ukuran,warna,gambar,aktif,created_at').eq('aktif', true).order('created_at', { ascending: false })
   if (error) {
     console.error('[v0] Gagal memuat produk publik dari Supabase:', error)
     return staticProducts

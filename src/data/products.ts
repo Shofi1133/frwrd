@@ -15,7 +15,6 @@ export type Product = {
   description: string
   material: string
   sizes?: string[]
-  price?: number
 }
 
 // TODO: hapus setelah seed berhasil. Dipertahankan sebagai fallback sementara.

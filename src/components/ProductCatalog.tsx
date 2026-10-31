@@ -5,7 +5,6 @@ import { type Product, WHATSAPP_NUMBER } from '../data/products'
 import { getPublicProducts } from '../lib/produk'
 
 const fallbackSizes = ['S', 'M', 'L', 'XL']
-const formatPrice = (price?: number) => price == null ? '' : new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(price)
 
 function ProductCard({ product, onSelect, index }: { product: Product; onSelect: (product: Product) => void; index: number }) {
   return (
@@ -23,7 +22,7 @@ function ProductCard({ product, onSelect, index }: { product: Product; onSelect:
       <div className="product-info">
         <div>
           <p className="product-category">{product.category}</p>
-          <h3>{product.name}</h3>{product.price != null && <span className="product-price">{formatPrice(product.price)}</span>}
+          <h3>{product.name}</h3>
         </div>
         <span className="product-color-indicator" aria-label={`Warna ${(product.colors ?? [product.color]).map((color) => color.name).join(', ')}`}>
           {(product.colors ?? [product.color]).map((color) => <i key={color.name} style={{ backgroundColor: color.hex }} />)}{(product.colors ?? [product.color]).map((color) => color.name).join(', ')}
