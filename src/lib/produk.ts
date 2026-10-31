@@ -29,7 +29,7 @@ const toPublicProduct = (row: DatabaseProduct): Product => {
     tag: row.kategori,
     color: fallbackColor,
     colors,
-    images: row.gambar ?? [],
+    images: row.gambar?.slice(0, 1) ?? [],
     description: row.deskripsi ?? '',
     material: [row.bahan, row.model].filter(Boolean).join(' · '),
     sizes: row.ukuran ?? [],

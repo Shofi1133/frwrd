@@ -38,7 +38,6 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
   const availableColors = product.colors?.length ? product.colors : [product.color]
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] ?? 'M')
   const [quantity, setQuantity] = useState(1)
-  const [selectedImage, setSelectedImage] = useState(0)
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false)
 
   useEffect(() => {
@@ -53,7 +52,7 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
     'Halo FRWRD, saya ingin memesan:',
     `Produk: ${product.name}`,
     `Ukuran: ${selectedSize}`,
-    `Warna: ${(product.colors ?? [product.color])[0].name}`,
+    `Warna: ${product.color.name}`,
     `Jumlah: ${quantity}`,
   ].join('\n')
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
@@ -71,25 +70,9 @@ function ProductDetail({ product, onClose, onSelectColor }: { product: Product; 
         </button>
         <div className="detail-gallery">
           <div className="detail-image-wrap">
-            <img src={product.images[selectedImage]} alt={`${product.name}, foto ${selectedImage === 0 ? 'tampak depan' : `detail ${selectedImage}`}`} />
-            <span className="product-tag">{(product.colors ?? [product.color])[0].name}</span>
+            <img src={product.images[0]} alt={`${product.name}, tampak depan`} />
+            <span className="product-tag">{product.color.name}</span>
           </div>
-          {product.images.length > 1 && (
-            <div className="detail-thumbnails" role="group" aria-label="Foto produk">
-              {product.images.map((image, index) => (
-                <button
-                  key={image}
-                  className={`detail-thumbnail ${selectedImage === index ? 'is-selected' : ''}`}
-                  type="button"
-                  aria-label={`Tampilkan foto ${index + 1} ${product.name}`}
-                  aria-pressed={selectedImage === index}
-                  onClick={() => setSelectedImage(index)}
-                >
-                  <img src={image} alt="" loading="lazy" />
-                </button>
-              ))}
-            </div>
-          )}
         </div>
         <div className="detail-copy">
           <p className="eyebrow">{product.category} · FRWRD</p>
